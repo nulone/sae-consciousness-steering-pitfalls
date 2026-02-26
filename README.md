@@ -1,3 +1,5 @@
+[![Verify Numbers](https://github.com/nulone/sae-consciousness-steering-pitfalls/actions/workflows/verify.yml/badge.svg)](https://github.com/nulone/sae-consciousness-steering-pitfalls/actions/workflows/verify.yml)
+
 # SAE Consciousness Steering: A Multi-Model Null Result
 
 I tried to use contrastive SAE discovery to find features that control how language models answer consciousness-related questions. After 9 experiments on Gemma 3 4B and Gemma 3 12B (plus a qualitative Neuronpedia label search on Llama 3.3 70B), I found no evidence of causal consciousness features with this pipeline. The contrastive method finds punctuation, Japanese grammar, and self-referential discourse markers — not consciousness.
