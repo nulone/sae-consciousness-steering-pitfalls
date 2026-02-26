@@ -11,7 +11,7 @@ Along the way I found two critical bugs in my steering code (both caught by exte
 # This measures "SAE reconstruction damage" + "feature effect" combined.
 # In my case, 98.8% of the observed effect disappeared after fixing the method
 # (at least 72% was pure round-trip reconstruction error).
-residual = sae.decode(modified_activations)
+residual = sae.decode(acts_modified)
 
 # ✅ RIGHT: adds only the feature-specific delta to original residual.
 # Reconstruction error appears in both decode() calls and cancels out.
@@ -23,9 +23,9 @@ residual = original_residual + delta
 
 **Contrastive features are not what they seem.** 17 features identified across two Gemma models and three layers. All 17 encode low-level linguistic patterns (punctuation, pronouns, Japanese verb endings), not consciousness.
 
-**Steering effect is zero.** With delta-steering (no reconstruction confound), ablating the "consciousness features" shifts logits by -0.031. For comparison, SAE round-trip error alone is -1.875. The features do nothing.
+**Steering effect is zero.** With delta-steering (no reconstruction confound), ablating the "consciousness features" shifts logits by -0.031. The old v1 hook (full residual replacement) gave -2.609, of which 98.8% disappeared after the fix. SAE round-trip error alone is -1.875. The features do nothing.
 
-**False positive scaling law.** Contrastive SAE discovery with n<20 texts per class produces mostly false positives. FP rate at n=4 is 55%, drops to 0% at n=28 (the largest sample size tested).
+**False positive scaling law.** Contrastive SAE discovery with small n has high FP rates (55% at n=4, 32% at n=8), dropping to 0% at n=28 (the largest sample size tested). Rule of thumb: use ≥20 texts per class.
 
 ## Repository Structure
 
@@ -41,7 +41,7 @@ scripts/
 data/
   exp_H_v2_*.json            # Definitive experiment results
   exp_A-G_*.json             # Earlier experiment results
-  OUTDATED_exp_h_v2.log      # Old GPU log (verdict is WRONG — see LOG_NOTE.md)
+  OUTDATED_exp_h_v2.log      # Old GPU log (verdict is WRONG — see data/LOG_NOTE.md)
   README.md                  # Guide to which data files are canonical
 
 neuronpedia_screenshots/     # Neuronpedia search results (Llama 70B, Gemma)
