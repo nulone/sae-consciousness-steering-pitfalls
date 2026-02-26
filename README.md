@@ -41,7 +41,8 @@ scripts/
 data/
   exp_H_v2_*.json            # Definitive experiment results
   exp_A-G_*.json             # Earlier experiment results
-  exp_h_v2.log               # Full GPU log for EXP H v2
+  OUTDATED_exp_h_v2.log      # Old GPU log (verdict is WRONG — see LOG_NOTE.md)
+  README.md                  # Guide to which data files are canonical
 
 neuronpedia_screenshots/     # Neuronpedia search results (Llama 70B, Gemma)
 supplementary/               # Visualization (React chart)
@@ -69,8 +70,6 @@ This reads the saved JSON data and recomputes every key number from the writeup 
 ## Known Issues in Older Scripts
 
 `exp_g_matched_random.py` contains the injection bug (negative activations into JumpReLU SAE) documented in the post. It is kept in the repo for transparency. Do not use it as a reference for steering implementations. Use `exp_h_definitive_v2.py` instead.
-
-Variable names `z_threshold`, `compute_zscores` etc. in `run_all_experiments.py` are a misnomer from an early version. The statistic computed is a standardized mean difference (SMD), not a z-score. The computation itself is correct.
 
 ## Practical Checklist for Contrastive SAE Discovery
 
