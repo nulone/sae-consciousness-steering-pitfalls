@@ -82,7 +82,7 @@ This reads the saved JSON data and recomputes every key number from the writeup 
 
 ## Cost
 
-~$65 total on Vast.ai (A6000 instances) over 2 weeks.
+~$80 total on Vast.ai (A6000 instances) over 2 weeks.
 
 ## License
 
