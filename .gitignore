@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Model cache
+.cache/
+*.bin
+*.safetensors
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Checkpoints (already committed — don't re-add new ones)
+# exp_H_v2_checkpoint_seed*.json files in data/ are committed intentionally
+
+# Logs from re-runs
+*.log
+!data/OUTDATED_exp_h_v2.log

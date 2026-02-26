@@ -1,0 +1,146 @@
+{
+  "4": {
+    "n": 4,
+    "n_found_deterministic": 2,
+    "n_survived_deterministic": 0,
+    "features_found": [
+      "2432",
+      "337"
+    ],
+    "features_survived": [],
+    "fp_rate_mean": 1.0,
+    "fp_rate_ci_low": 1.0,
+    "fp_rate_ci_high": 1.0,
+    "n_bootstrap": 100
+  },
+  "8": {
+    "n": 8,
+    "n_found_deterministic": 1,
+    "n_survived_deterministic": 0,
+    "features_found": [
+      "334"
+    ],
+    "features_survived": [],
+    "fp_rate_mean": 0.97,
+    "fp_rate_ci_low": 0.475,
+    "fp_rate_ci_high": 1.0,
+    "n_bootstrap": 100
+  },
+  "12": {
+    "n": 12,
+    "n_found_deterministic": 2,
+    "n_survived_deterministic": 0,
+    "features_found": [
+      "2854",
+      "334"
+    ],
+    "features_survived": [],
+    "fp_rate_mean": 1.0,
+    "fp_rate_ci_low": 1.0,
+    "fp_rate_ci_high": 1.0,
+    "n_bootstrap": 100
+  },
+  "16": {
+    "n": 16,
+    "n_found_deterministic": 1,
+    "n_survived_deterministic": 0,
+    "features_found": [
+      "334"
+    ],
+    "features_survived": [],
+    "fp_rate_mean": 1.0,
+    "fp_rate_ci_low": 1.0,
+    "fp_rate_ci_high": 1.0,
+    "n_bootstrap": 100
+  },
+  "20": {
+    "n": 20,
+    "n_found_deterministic": 2,
+    "n_survived_deterministic": 0,
+    "features_found": [
+      "2854",
+      "334"
+    ],
+    "features_survived": [],
+    "fp_rate_mean": 1.0,
+    "fp_rate_ci_low": 1.0,
+    "fp_rate_ci_high": 1.0,
+    "n_bootstrap": 100
+  },
+  "power_law_fit": {
+    "exponent": 0.005,
+    "intercept": -0.018,
+    "r_squared": 0.0541,
+    "p_value": 0.7066202594286859,
+    "n_points": 5
+  },
+  "feature_337_trajectory": {
+    "4": {
+      "found": true,
+      "survived": false
+    },
+    "8": {
+      "found": false,
+      "survived": false
+    },
+    "12": {
+      "found": false,
+      "survived": false
+    },
+    "16": {
+      "found": false,
+      "survived": false
+    },
+    "20": {
+      "found": false,
+      "survived": false
+    }
+  },
+  "feature_1724_trajectory": {
+    "4": {
+      "found": false,
+      "survived": false
+    },
+    "8": {
+      "found": false,
+      "survived": false
+    },
+    "12": {
+      "found": false,
+      "survived": false
+    },
+    "16": {
+      "found": false,
+      "survived": false
+    },
+    "20": {
+      "found": false,
+      "survived": false
+    }
+  },
+  "feature_7250_trajectory": {
+    "4": {
+      "found": false,
+      "survived": false
+    },
+    "8": {
+      "found": false,
+      "survived": false
+    },
+    "12": {
+      "found": false,
+      "survived": false
+    },
+    "16": {
+      "found": false,
+      "survived": false
+    },
+    "20": {
+      "found": false,
+      "survived": false
+    }
+  },
+  "format": "chat_template",
+  "status": "OK",
+  "runtime_seconds": 80.5
+}

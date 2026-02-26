@@ -1,0 +1,23 @@
+# Я попробовал рулить "сознанием" через SAE и вместо этого нашёл два бага
+
+Две недели, ~65 баксов на Vast.ai, 9 экспериментов на Gemma 4B и 12B. Я хотел проверить: может ли стандартный contrastive pipeline для SAE найти features, которые каузально управляют тем, как модель отвечает на вопросы о сознании. В моей постановке — не нашёл. Но более полезная находка — это почему pipeline ломается, и два бага в моём коде, из-за которых фейковые результаты выглядели настоящими.
+
+Я выбрал Gemma потому что GemmaScope SAE публичные и хорошо задокументированы. Не потому что ожидал найти сознание в 4B модели. Вопрос был другой: находит ли стандартный contrastive pipeline хоть что-то осмысленное, когда направляешь его на абстрактный концепт?
+
+**Что pipeline находит на самом деле.** Я написал 80 contrastive текстов (40 утверждают сознание, 40 отрицают), прогнал через модель, достал SAE activations, выбрал features с высокой differential activation. Нашёл 17 "consciousness features" на обеих Gemma моделях и трёх layers. Для 12B features я проверил labels на Neuronpedia. Для 4B features (#1795 и #934) Neuronpedia хостит другой вариант SAE (l0_medium вместо l0_small который я использовал; индексы не совпадают), поэтому я делал direct activation analysis на правильном SAE. Результат один и тот же: японские грамматические частицы. Пунктуация. Self-referential discourse markers (паттерн "my/mine/myself"). Ни для одной из семнадцати я не смог придумать правдоподобную интерпретацию связанную с сознанием. Они просто коррелировали со стилистическими различиями между моими двумя пулами текстов. Задним числом это не удивительно — я не идеально матчил стиль между пулами, и pipeline радостно зацепился за разницу.
+
+**Баг №1: инъекция шума.** Мой steering hook вычислял отрицательные target activations для позиций где feature неактивна. В JumpReLU SAE activations по дизайну ≥ 0. Я вливал мусор в residual stream. Внешний reviewer поймал это.
+
+**Баг №2: reconstruction confound.** После фикса бага №1, мой hook всё ещё заменял весь residual на SAE reconstruction при модификации features. SAE reconstruction — lossy операция. Изначальный "consciousness effect" составлял -2.609 (сдвиг logits). Фикс: delta-steering (`residual += decode(modified) - decode(original)`). Reconstruction error вычитается. Чистый результат после delta-steering: **-0.031.** То есть 98.8% v1-эффекта исчезло после устранения confound (как минимум 72% — чистая round-trip reconstruction error, остальное — нелинейные эффекты full-replacement hook). Этот -0.031 попадает в середину null distribution от matched random features (conditional p = 0.40, ранг 4 из 10 ненулевых). Важно: paper features evaluation полностью детерминирована — seeds влияют только на random combos, так что delta=-0.031 это одно измерение, а не три независимых.
+
+**Scaling law для false positives.** Возможно самая полезная находка для других. В моём pipeline и при моих порогах (feature считается false positive если проходит discovery но не переживает holdout cross-validation), contrastive SAE discovery при малых n даёт высокий FP rate: 55% при n=4, ~24% при n=12, ~9% при n=20, и 0% при n=28 (максимальный протестированный размер). Я ожидаю похожие проблемы в других contrastive setups, хотя точные пороги будут зависеть от датасета и SAE. Практическое правило для этого типа contrastive discovery: используйте n≥20 или относитесь к результатам скептически.
+
+**Быстрая проверка на Llama 70B.** Не настоящий эксперимент, просто sanity check — я поискал на Neuronpedia по autointerp labels "consciousness", "subjective experience", "self-awareness". Ноль результатов. Но "I am an AI" вернул десятки features. Это проверяет только одно: содержат ли autointerp labels эти слова. Не более.
+
+**Что заставило бы меня передумать.** Покажите мне feature, которая: переживает cross-validation при n≥20, имеет связный label на Neuronpedia, рулит стабильно в одну сторону через delta-steering hook, и бьёт matched random control. В моих экспериментах такого не было.
+
+**Практические выводы для SAE researchers:** n≥20 текстов на класс для contrastive discovery. Всегда cross-validate на held-out текстах. Использовать delta-steering hooks, не full-replacement. Включать matched random feature baselines. Проверять features на Neuronpedia прежде чем заявлять интерпретации.
+
+Полный writeup, весь код, данные и реализация delta-steering: [github.com/nulone/sae-consciousness-steering-pitfalls](https://github.com/nulone/sae-consciousness-steering-pitfalls)
+
+*Я использовал AI-assisted code review вместе с human review — они поймали два critical бага. Если занимаешься mech interp в одиночку — найди кого-нибудь кто прочитает твой код, будь то человек или AI.*

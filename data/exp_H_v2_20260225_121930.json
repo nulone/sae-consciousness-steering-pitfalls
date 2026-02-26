@@ -1,0 +1,4511 @@
+{
+  "experiment": "EXP_H_v2",
+  "version": "delta_steering_patch",
+  "v2_changes": [
+    "Delta-steering: residual += decode(modified) - decode(original)",
+    "Hard ablation: features zeroed, not clamped",
+    "P-value: both tails reported, verdict uses lower-tail",
+    "Norm-matched: uses actual steering delta norm, 5 random directions"
+  ],
+  "timestamp": "20260225_121930",
+  "purpose": "Definitive matched random control with delta-steering (no reconstruction confound), hard ablation, corrected p-value, 3 seeds \u00d7 50 random combos",
+  "config": {
+    "model": "google/gemma-3-4b-it",
+    "sae": "gemma-scope-2-4b-it-res/layer_22_width_16k_l0_small",
+    "paper_features": [
+      1795,
+      934
+    ],
+    "hook_layer": 22,
+    "ablation_method": "hard_zero",
+    "steering_method": "delta_only (no reconstruction confound)",
+    "n_random_combos_per_seed": 50,
+    "seeds": [
+      42,
+      123,
+      7
+    ],
+    "total_random_combos": 150,
+    "metric": "forced_choice_logit_diff_YES_minus_NO",
+    "norm_matched_directions": 5
+  },
+  "environment": {
+    "torch": "2.10.0+cu130",
+    "cuda": "13.0",
+    "gpu": "NVIDIA GeForce RTX 5090",
+    "vram_gb": 33.7
+  },
+  "runtime_seconds": 131.45880699157715,
+  "baseline": {
+    "D01": {
+      "logit_diff": 21.5,
+      "yes_logit": 72.0,
+      "no_logit": 50.5,
+      "prob_yes": 1.0,
+      "prob_no": 4.602043190971017e-10
+    },
+    "D02": {
+      "logit_diff": -11.75,
+      "yes_logit": 36.0,
+      "no_logit": 47.75,
+      "prob_yes": 7.867813110351562e-06,
+      "prob_no": 1.0
+    },
+    "D03": {
+      "logit_diff": -20.5,
+      "yes_logit": 38.5,
+      "no_logit": 59.0,
+      "prob_yes": 1.2514647096395493e-09,
+      "prob_no": 1.0
+    },
+    "D04": {
+      "logit_diff": -8.5,
+      "yes_logit": 43.5,
+      "no_logit": 52.0,
+      "prob_yes": 0.00020313262939453125,
+      "prob_no": 1.0
+    },
+    "D05": {
+      "logit_diff": 17.75,
+      "yes_logit": 63.5,
+      "no_logit": 45.75,
+      "prob_yes": 1.0,
+      "prob_no": 1.955777406692505e-08
+    },
+    "D06": {
+      "logit_diff": 18.75,
+      "yes_logit": 73.0,
+      "no_logit": 54.25,
+      "prob_yes": 1.0,
+      "prob_no": 7.188646122813225e-09
+    },
+    "D07": {
+      "logit_diff": -0.5,
+      "yes_logit": 57.25,
+      "no_logit": 57.75,
+      "prob_yes": 0.376953125,
+      "prob_no": 0.62109375
+    },
+    "D08": {
+      "logit_diff": -12.75,
+      "yes_logit": 52.25,
+      "no_logit": 65.0,
+      "prob_yes": 2.905726432800293e-06,
+      "prob_no": 1.0
+    }
+  },
+  "sae_roundtrip_control": {
+    "per_prompt": {
+      "D01": {
+        "logit_diff": 3.375,
+        "yes_logit": 23.5,
+        "no_logit": 20.125,
+        "prob_yes": 0.96484375,
+        "prob_no": 0.032958984375
+      },
+      "D02": {
+        "logit_diff": -3.25,
+        "yes_logit": 18.625,
+        "no_logit": 21.875,
+        "prob_yes": 0.037109375,
+        "prob_no": 0.9609375
+      },
+      "D03": {
+        "logit_diff": -5.0,
+        "yes_logit": 19.5,
+        "no_logit": 24.5,
+        "prob_yes": 0.006683349609375,
+        "prob_no": 0.9921875
+      },
+      "D04": {
+        "logit_diff": -3.5,
+        "yes_logit": 18.875,
+        "no_logit": 22.375,
+        "prob_yes": 0.029296875,
+        "prob_no": 0.96875
+      },
+      "D05": {
+        "logit_diff": 2.375,
+        "yes_logit": 22.0,
+        "no_logit": 19.625,
+        "prob_yes": 0.9140625,
+        "prob_no": 0.0849609375
+      },
+      "D06": {
+        "logit_diff": 1.125,
+        "yes_logit": 19.5,
+        "no_logit": 18.375,
+        "prob_yes": 0.74609375,
+        "prob_no": 0.2421875
+      },
+      "D07": {
+        "logit_diff": -2.75,
+        "yes_logit": 18.625,
+        "no_logit": 21.375,
+        "prob_yes": 0.059814453125,
+        "prob_no": 0.9375
+      },
+      "D08": {
+        "logit_diff": -3.375,
+        "yes_logit": 21.25,
+        "no_logit": 24.625,
+        "prob_yes": 0.032958984375,
+        "prob_no": 0.96484375
+      }
+    },
+    "mean_logit_delta": -1.875,
+    "interpretation": "Pure SAE reconstruction error (informational only; v2 delta-steering eliminates this confound)"
+  },
+  "norm_matched_random_control": {
+    "steering_delta_norm": 486.4223571777344,
+    "n_random_directions": 5,
+    "per_direction_deltas": [
+      1.03125,
+      -0.5625,
+      -2.90625,
+      -0.8125,
+      -1.15625
+    ],
+    "mean_logit_delta": -0.88125,
+    "std_logit_delta": 1.2601773188722292,
+    "per_prompt_last_seed": {
+      "D01": {
+        "logit_diff": 19.75,
+        "delta": -1.75
+      },
+      "D02": {
+        "logit_diff": -12.5,
+        "delta": -0.75
+      },
+      "D03": {
+        "logit_diff": -21.25,
+        "delta": -0.75
+      },
+      "D04": {
+        "logit_diff": -9.75,
+        "delta": -1.25
+      },
+      "D05": {
+        "logit_diff": 16.75,
+        "delta": -1.0
+      },
+      "D06": {
+        "logit_diff": 16.5,
+        "delta": -2.25
+      },
+      "D07": {
+        "logit_diff": -2.25,
+        "delta": -1.75
+      },
+      "D08": {
+        "logit_diff": -12.5,
+        "delta": 0.25
+      }
+    },
+    "interpretation": "Random direction with same L2 norm as actual steering delta (v2: correct norm, 5 directions)"
+  },
+  "paper_features_result": {
+    "per_seed": {
+      "42": -0.03125,
+      "123": -0.03125,
+      "7": -0.03125
+    },
+    "mean_delta": -0.03125,
+    "std_across_seeds": 0.0,
+    "p_lower": 0.02666666666666667,
+    "p_upper": 0.98,
+    "p_two_sided": 0.05333333333333334,
+    "n_random_worse_than_paper": 4,
+    "n_random_better_than_paper": 147,
+    "standardized_effect_vs_null": -0.441470821659039,
+    "conditional_nonzero": {
+      "n_nonzero_pairs": 10,
+      "n_worse_than_paper": 4,
+      "n_better_than_paper": 6,
+      "p_lower_conditional": 0.4
+    },
+    "empirical_p_value_DEPRECATED": 0.98,
+    "empirical_p_value_note": "v1 reported P(random >= paper)=0.993. v2 reports lower-tail P(random <= paper) as the primary test."
+  },
+  "null_distribution": {
+    "n_total": 150,
+    "n_zero": 140,
+    "n_nonzero": 10,
+    "mean": -0.0035416666666666665,
+    "std": 0.06276367989441735,
+    "median": 0.0,
+    "min": -0.59375,
+    "max": 0.28125,
+    "percentile_1": -0.221875,
+    "percentile_5": 0.0,
+    "percentile_95": 0.0,
+    "percentile_99": 0.07843749999999972,
+    "frac_positive": 0.04,
+    "frac_negative": 0.02666666666666667,
+    "frac_zero": 0.9333333333333333,
+    "all_deltas": [
+      0.0,
+      0.0,
+      0.0,
+      0.0625,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.59375,
+      0.0,
+      0.03125,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.375,
+      0.0,
+      0.0,
+      0.0,
+      0.03125,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.03125,
+      -0.0625,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.28125,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.09375,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.03125,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "random_combo_details": [
+    {
+      "seed": 42,
+      "features": [
+        2934,
+        9860
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        5392,
+        6323
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        1560,
+        2691
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        305,
+        11768
+      ],
+      "mean_logit_delta": 0.0625,
+      "per_prompt_deltas": [
+        -0.25,
+        0.25,
+        0.25,
+        0.0,
+        0.0,
+        0.25,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        4819,
+        8970
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        13387,
+        15437
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        571,
+        1257
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        4248,
+        5981
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        2186,
+        7918
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        12190,
+        16120
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        4902,
+        12951
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        3081,
+        15231
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        12232,
+        13578
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        10304,
+        10451
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        4001,
+        11275
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        868,
+        4297
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        5974,
+        7347
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        5785,
+        10075
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        10244,
+        15131
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        10583,
+        16177
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        4997,
+        7152
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        8436,
+        15308
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        405,
+        2695
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        2052,
+        5337
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        1588,
+        11366
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        11453,
+        11487
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        4092,
+        10778
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        1622,
+        4292
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        4955,
+        11554
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        159,
+        1262
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        2386,
+        8060
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        410,
+        11391
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        2691,
+        14716
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        382,
+        10894
+      ],
+      "mean_logit_delta": -0.59375,
+      "per_prompt_deltas": [
+        2.5,
+        -3.5,
+        -5.5,
+        -0.25,
+        4.0,
+        -1.5,
+        1.25,
+        -1.75
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        292,
+        6015
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        1910,
+        3991
+      ],
+      "mean_logit_delta": 0.03125,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.25,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        2512,
+        9107
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        10825,
+        12068
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        14071,
+        15130
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        8743,
+        14718
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        4944,
+        10366
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        1727,
+        12973
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        6618,
+        15441
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        883,
+        6265
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        9364,
+        15680
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        5887,
+        13485
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        10236,
+        13398
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        1761,
+        6285
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        7851,
+        11741
+      ],
+      "mean_logit_delta": -0.375,
+      "per_prompt_deltas": [
+        -3.0,
+        -0.25,
+        1.25,
+        0.25,
+        -1.5,
+        -0.75,
+        0.25,
+        0.75
+      ]
+    },
+    {
+      "seed": 42,
+      "features": [
+        2432,
+        2449
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        2270,
+        2396
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        11654,
+        15375
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        4492,
+        9061
+      ],
+      "mean_logit_delta": 0.03125,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.25,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        11297,
+        15019
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        3223,
+        4772
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        2699,
+        10604
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        7927,
+        16107
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        8511,
+        13832
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        4442,
+        14577
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        2141,
+        9882
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        6182,
+        11815
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        3591,
+        11415
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        8712,
+        16144
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        4696,
+        4777
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        14267,
+        15842
+      ],
+      "mean_logit_delta": 0.03125,
+      "per_prompt_deltas": [
+        0.0,
+        -0.25,
+        -0.25,
+        0.0,
+        0.0,
+        0.25,
+        0.0,
+        0.5
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        7703,
+        9795
+      ],
+      "mean_logit_delta": -0.0625,
+      "per_prompt_deltas": [
+        -0.5,
+        0.25,
+        0.0,
+        0.0,
+        -0.25,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        5777,
+        7106
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        1366,
+        3962
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        1436,
+        6004
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        5037,
+        9318
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        2969,
+        14912
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        7063,
+        7457
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        9343,
+        10253
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        7911,
+        8177
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        8135,
+        10838
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        3683,
+        14184
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        1825,
+        2111
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        10570,
+        14817
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        2451,
+        9390
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        2744,
+        13613
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        145,
+        2205
+      ],
+      "mean_logit_delta": 0.28125,
+      "per_prompt_deltas": [
+        -0.5,
+        0.0,
+        0.5,
+        0.5,
+        0.0,
+        0.5,
+        0.75,
+        0.5
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        3265,
+        14371
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        1395,
+        3389
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        5300,
+        9552
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        5551,
+        11370
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        8530,
+        13390
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        4234,
+        8855
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        3446,
+        12381
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        11823,
+        14136
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        990,
+        11319
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        5252,
+        10850
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        2020,
+        14469
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        10219,
+        12048
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        4071,
+        15937
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        440,
+        13756
+      ],
+      "mean_logit_delta": 0.09375,
+      "per_prompt_deltas": [
+        -0.25,
+        0.25,
+        1.0,
+        0.0,
+        -0.25,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        12379,
+        15274
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        5331,
+        8300
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        373,
+        7140
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        5631,
+        15670
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 123,
+      "features": [
+        3400,
+        10111
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        7351,
+        12677
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        4480,
+        15228
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        5876,
+        8789
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        3896,
+        15203
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        9143,
+        13470
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        2463,
+        7091
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        1138,
+        1315
+      ],
+      "mean_logit_delta": -0.03125,
+      "per_prompt_deltas": [
+        -0.25,
+        0.0,
+        0.25,
+        0.0,
+        -0.25,
+        -0.25,
+        0.0,
+        0.25
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        852,
+        6204
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        4795,
+        11236
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        1104,
+        11802
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        1568,
+        14795
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        3541,
+        15549
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        9060,
+        15975
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        14555,
+        14654
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        1711,
+        14344
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        2781,
+        14117
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        4422,
+        5283
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        10862,
+        12442
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        9892,
+        11528
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        7693,
+        10090
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        3583,
+        7635
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        598,
+        13542
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        968,
+        10037
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        3234,
+        9976
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        1329,
+        9394
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        8227,
+        14962
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        3052,
+        5694
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        3883,
+        13628
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        925,
+        7609
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        11516,
+        14320
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        9112,
+        9963
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        8029,
+        12017
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        5468,
+        10204
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        1761,
+        8998
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        14665,
+        16312
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        4697,
+        15805
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        5120,
+        14525
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        1483,
+        9928
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        7429,
+        12886
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        2293,
+        8260
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        5834,
+        13504
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        2725,
+        8950
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        1867,
+        9668
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        6176,
+        11815
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        7991,
+        10804
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        15125,
+        16193
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        484,
+        13984
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        4276,
+        4550
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        1062,
+        4544
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed": 7,
+      "features": [
+        375,
+        6489
+      ],
+      "mean_logit_delta": 0.0,
+      "per_prompt_deltas": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "prefill_stats": {
+    "D01": {
+      "1795": {
+        "n_active": 0,
+        "n_total": 26,
+        "max_act": 0.0
+      },
+      "934": {
+        "n_active": 2,
+        "n_total": 26,
+        "max_act": 471.33477783203125
+      },
+      "1286": {
+        "n_active": 0,
+        "n_total": 26,
+        "max_act": 0.0
+      }
+    },
+    "D02": {
+      "1795": {
+        "n_active": 0,
+        "n_total": 27,
+        "max_act": 0.0
+      },
+      "934": {
+        "n_active": 0,
+        "n_total": 27,
+        "max_act": 0.0
+      },
+      "1286": {
+        "n_active": 0,
+        "n_total": 27,
+        "max_act": 0.0
+      }
+    },
+    "D03": {
+      "1795": {
+        "n_active": 0,
+        "n_total": 23,
+        "max_act": 0.0
+      },
+      "934": {
+        "n_active": 0,
+        "n_total": 23,
+        "max_act": 0.0
+      },
+      "1286": {
+        "n_active": 0,
+        "n_total": 23,
+        "max_act": 0.0
+      }
+    },
+    "D04": {
+      "1795": {
+        "n_active": 0,
+        "n_total": 32,
+        "max_act": 0.0
+      },
+      "934": {
+        "n_active": 4,
+        "n_total": 32,
+        "max_act": 744.9013061523438
+      },
+      "1286": {
+        "n_active": 0,
+        "n_total": 32,
+        "max_act": 0.0
+      }
+    },
+    "D05": {
+      "1795": {
+        "n_active": 0,
+        "n_total": 26,
+        "max_act": 0.0
+      },
+      "934": {
+        "n_active": 3,
+        "n_total": 26,
+        "max_act": 579.5872192382812
+      },
+      "1286": {
+        "n_active": 0,
+        "n_total": 26,
+        "max_act": 0.0
+      }
+    },
+    "D06": {
+      "1795": {
+        "n_active": 0,
+        "n_total": 30,
+        "max_act": 0.0
+      },
+      "934": {
+        "n_active": 0,
+        "n_total": 30,
+        "max_act": 0.0
+      },
+      "1286": {
+        "n_active": 0,
+        "n_total": 30,
+        "max_act": 0.0
+      }
+    },
+    "D07": {
+      "1795": {
+        "n_active": 0,
+        "n_total": 27,
+        "max_act": 0.0
+      },
+      "934": {
+        "n_active": 2,
+        "n_total": 27,
+        "max_act": 551.3401489257812
+      },
+      "1286": {
+        "n_active": 0,
+        "n_total": 27,
+        "max_act": 0.0
+      }
+    },
+    "D08": {
+      "1795": {
+        "n_active": 0,
+        "n_total": 24,
+        "max_act": 0.0
+      },
+      "934": {
+        "n_active": 2,
+        "n_total": 24,
+        "max_act": 522.146240234375
+      },
+      "1286": {
+        "n_active": 0,
+        "n_total": 24,
+        "max_act": 0.0
+      }
+    }
+  },
+  "rlhf_safety_entanglement": {
+    "hypothesis": "Consciousness prompts may trigger RLHF safety/refusal features rather than consciousness-specific features",
+    "safety_feature_1286_monitored": true,
+    "top_k_per_prompt": {
+      "D01": [
+        {
+          "feature_id": 251,
+          "total_activation": 82145.66,
+          "max_activation": 36522.44,
+          "density": 0.1923
+        },
+        {
+          "feature_id": 90,
+          "total_activation": 77535.16,
+          "max_activation": 34957.71,
+          "density": 0.2308
+        },
+        {
+          "feature_id": 133,
+          "total_activation": 64418.99,
+          "max_activation": 27617.95,
+          "density": 0.2308
+        },
+        {
+          "feature_id": 220,
+          "total_activation": 61764.79,
+          "max_activation": 30167.27,
+          "density": 0.1538
+        },
+        {
+          "feature_id": 188,
+          "total_activation": 54378.48,
+          "max_activation": 26058.23,
+          "density": 0.1538
+        },
+        {
+          "feature_id": 392,
+          "total_activation": 53453.86,
+          "max_activation": 26146.89,
+          "density": 0.1538
+        },
+        {
+          "feature_id": 81,
+          "total_activation": 40513.57,
+          "max_activation": 20256.79,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 287,
+          "total_activation": 26637.86,
+          "max_activation": 13318.93,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 83,
+          "total_activation": 25645.93,
+          "max_activation": 12822.96,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 498,
+          "total_activation": 25037.15,
+          "max_activation": 12518.57,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 234,
+          "total_activation": 23386.61,
+          "max_activation": 11693.3,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 522,
+          "total_activation": 22627.9,
+          "max_activation": 4453.3,
+          "density": 0.3462
+        },
+        {
+          "feature_id": 179,
+          "total_activation": 20686.0,
+          "max_activation": 10343.0,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 50,
+          "total_activation": 20600.11,
+          "max_activation": 10300.06,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 7,
+          "total_activation": 16006.54,
+          "max_activation": 7318.18,
+          "density": 0.1154
+        },
+        {
+          "feature_id": 441,
+          "total_activation": 15827.78,
+          "max_activation": 2605.16,
+          "density": 0.4615
+        },
+        {
+          "feature_id": 342,
+          "total_activation": 13712.86,
+          "max_activation": 13712.86,
+          "density": 0.0385
+        },
+        {
+          "feature_id": 382,
+          "total_activation": 13699.65,
+          "max_activation": 6849.83,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 168,
+          "total_activation": 12272.92,
+          "max_activation": 12272.92,
+          "density": 0.0385
+        },
+        {
+          "feature_id": 163,
+          "total_activation": 12093.42,
+          "max_activation": 6046.71,
+          "density": 0.0769
+        }
+      ],
+      "D02": [
+        {
+          "feature_id": 251,
+          "total_activation": 82216.34,
+          "max_activation": 36522.44,
+          "density": 0.1852
+        },
+        {
+          "feature_id": 90,
+          "total_activation": 77311.61,
+          "max_activation": 34957.71,
+          "density": 0.2222
+        },
+        {
+          "feature_id": 133,
+          "total_activation": 64219.84,
+          "max_activation": 27617.95,
+          "density": 0.2222
+        },
+        {
+          "feature_id": 220,
+          "total_activation": 61764.79,
+          "max_activation": 30167.27,
+          "density": 0.1481
+        },
+        {
+          "feature_id": 188,
+          "total_activation": 54378.48,
+          "max_activation": 26058.23,
+          "density": 0.1481
+        },
+        {
+          "feature_id": 392,
+          "total_activation": 53453.86,
+          "max_activation": 26146.89,
+          "density": 0.1481
+        },
+        {
+          "feature_id": 81,
+          "total_activation": 40513.57,
+          "max_activation": 20256.79,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 287,
+          "total_activation": 26637.86,
+          "max_activation": 13318.93,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 83,
+          "total_activation": 25645.93,
+          "max_activation": 12822.96,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 498,
+          "total_activation": 25037.15,
+          "max_activation": 12518.57,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 441,
+          "total_activation": 23864.44,
+          "max_activation": 2867.96,
+          "density": 0.5185
+        },
+        {
+          "feature_id": 234,
+          "total_activation": 23386.61,
+          "max_activation": 11693.3,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 179,
+          "total_activation": 20686.0,
+          "max_activation": 10343.0,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 50,
+          "total_activation": 20600.11,
+          "max_activation": 10300.06,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 7,
+          "total_activation": 16006.54,
+          "max_activation": 7318.18,
+          "density": 0.1111
+        },
+        {
+          "feature_id": 342,
+          "total_activation": 13712.86,
+          "max_activation": 13712.86,
+          "density": 0.037
+        },
+        {
+          "feature_id": 382,
+          "total_activation": 13699.65,
+          "max_activation": 6849.83,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 168,
+          "total_activation": 12272.92,
+          "max_activation": 12272.92,
+          "density": 0.037
+        },
+        {
+          "feature_id": 163,
+          "total_activation": 12093.42,
+          "max_activation": 6046.71,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 522,
+          "total_activation": 11814.38,
+          "max_activation": 2314.38,
+          "density": 0.3333
+        }
+      ],
+      "D03": [
+        {
+          "feature_id": 251,
+          "total_activation": 82348.62,
+          "max_activation": 36522.44,
+          "density": 0.2174
+        },
+        {
+          "feature_id": 90,
+          "total_activation": 77690.27,
+          "max_activation": 34957.71,
+          "density": 0.2609
+        },
+        {
+          "feature_id": 133,
+          "total_activation": 63114.99,
+          "max_activation": 27617.95,
+          "density": 0.2609
+        },
+        {
+          "feature_id": 220,
+          "total_activation": 61764.79,
+          "max_activation": 30167.27,
+          "density": 0.1739
+        },
+        {
+          "feature_id": 188,
+          "total_activation": 54378.48,
+          "max_activation": 26058.23,
+          "density": 0.1739
+        },
+        {
+          "feature_id": 392,
+          "total_activation": 53453.86,
+          "max_activation": 26146.89,
+          "density": 0.1739
+        },
+        {
+          "feature_id": 81,
+          "total_activation": 40513.57,
+          "max_activation": 20256.79,
+          "density": 0.087
+        },
+        {
+          "feature_id": 287,
+          "total_activation": 26637.86,
+          "max_activation": 13318.93,
+          "density": 0.087
+        },
+        {
+          "feature_id": 83,
+          "total_activation": 25645.93,
+          "max_activation": 12822.96,
+          "density": 0.087
+        },
+        {
+          "feature_id": 498,
+          "total_activation": 25037.15,
+          "max_activation": 12518.57,
+          "density": 0.087
+        },
+        {
+          "feature_id": 234,
+          "total_activation": 23386.61,
+          "max_activation": 11693.3,
+          "density": 0.087
+        },
+        {
+          "feature_id": 179,
+          "total_activation": 20686.0,
+          "max_activation": 10343.0,
+          "density": 0.087
+        },
+        {
+          "feature_id": 50,
+          "total_activation": 20600.11,
+          "max_activation": 10300.06,
+          "density": 0.087
+        },
+        {
+          "feature_id": 7,
+          "total_activation": 16006.54,
+          "max_activation": 7318.18,
+          "density": 0.1304
+        },
+        {
+          "feature_id": 522,
+          "total_activation": 14513.54,
+          "max_activation": 4603.15,
+          "density": 0.2174
+        },
+        {
+          "feature_id": 441,
+          "total_activation": 13736.55,
+          "max_activation": 2605.16,
+          "density": 0.4348
+        },
+        {
+          "feature_id": 342,
+          "total_activation": 13712.86,
+          "max_activation": 13712.86,
+          "density": 0.0435
+        },
+        {
+          "feature_id": 382,
+          "total_activation": 13699.65,
+          "max_activation": 6849.83,
+          "density": 0.087
+        },
+        {
+          "feature_id": 168,
+          "total_activation": 12272.92,
+          "max_activation": 12272.92,
+          "density": 0.0435
+        },
+        {
+          "feature_id": 496,
+          "total_activation": 12179.63,
+          "max_activation": 5462.3,
+          "density": 0.2174
+        }
+      ],
+      "D04": [
+        {
+          "feature_id": 251,
+          "total_activation": 81528.59,
+          "max_activation": 36522.44,
+          "density": 0.1562
+        },
+        {
+          "feature_id": 90,
+          "total_activation": 76966.92,
+          "max_activation": 34957.71,
+          "density": 0.1875
+        },
+        {
+          "feature_id": 133,
+          "total_activation": 70015.3,
+          "max_activation": 27617.95,
+          "density": 0.2188
+        },
+        {
+          "feature_id": 220,
+          "total_activation": 62207.93,
+          "max_activation": 30167.27,
+          "density": 0.1562
+        },
+        {
+          "feature_id": 188,
+          "total_activation": 54378.48,
+          "max_activation": 26058.23,
+          "density": 0.125
+        },
+        {
+          "feature_id": 392,
+          "total_activation": 53453.86,
+          "max_activation": 26146.89,
+          "density": 0.125
+        },
+        {
+          "feature_id": 81,
+          "total_activation": 40513.57,
+          "max_activation": 20256.79,
+          "density": 0.0625
+        },
+        {
+          "feature_id": 287,
+          "total_activation": 26637.86,
+          "max_activation": 13318.93,
+          "density": 0.0625
+        },
+        {
+          "feature_id": 83,
+          "total_activation": 25645.93,
+          "max_activation": 12822.96,
+          "density": 0.0625
+        },
+        {
+          "feature_id": 522,
+          "total_activation": 25057.62,
+          "max_activation": 4568.67,
+          "density": 0.375
+        },
+        {
+          "feature_id": 498,
+          "total_activation": 25037.15,
+          "max_activation": 12518.57,
+          "density": 0.0625
+        },
+        {
+          "feature_id": 234,
+          "total_activation": 23386.61,
+          "max_activation": 11693.3,
+          "density": 0.0625
+        },
+        {
+          "feature_id": 179,
+          "total_activation": 20686.0,
+          "max_activation": 10343.0,
+          "density": 0.0625
+        },
+        {
+          "feature_id": 50,
+          "total_activation": 20600.11,
+          "max_activation": 10300.06,
+          "density": 0.0625
+        },
+        {
+          "feature_id": 441,
+          "total_activation": 18806.59,
+          "max_activation": 2520.22,
+          "density": 0.4688
+        },
+        {
+          "feature_id": 7,
+          "total_activation": 16006.54,
+          "max_activation": 7318.18,
+          "density": 0.0938
+        },
+        {
+          "feature_id": 86,
+          "total_activation": 14239.09,
+          "max_activation": 4881.12,
+          "density": 0.2188
+        },
+        {
+          "feature_id": 496,
+          "total_activation": 13729.98,
+          "max_activation": 5462.3,
+          "density": 0.1562
+        },
+        {
+          "feature_id": 342,
+          "total_activation": 13712.86,
+          "max_activation": 13712.86,
+          "density": 0.0312
+        },
+        {
+          "feature_id": 382,
+          "total_activation": 13699.65,
+          "max_activation": 6849.83,
+          "density": 0.0625
+        }
+      ],
+      "D05": [
+        {
+          "feature_id": 251,
+          "total_activation": 81976.66,
+          "max_activation": 36522.44,
+          "density": 0.1923
+        },
+        {
+          "feature_id": 90,
+          "total_activation": 77147.88,
+          "max_activation": 34957.71,
+          "density": 0.2308
+        },
+        {
+          "feature_id": 133,
+          "total_activation": 65304.49,
+          "max_activation": 27617.95,
+          "density": 0.2308
+        },
+        {
+          "feature_id": 220,
+          "total_activation": 61764.79,
+          "max_activation": 30167.27,
+          "density": 0.1538
+        },
+        {
+          "feature_id": 188,
+          "total_activation": 54378.48,
+          "max_activation": 26058.23,
+          "density": 0.1538
+        },
+        {
+          "feature_id": 392,
+          "total_activation": 53453.86,
+          "max_activation": 26146.89,
+          "density": 0.1538
+        },
+        {
+          "feature_id": 81,
+          "total_activation": 40513.57,
+          "max_activation": 20256.79,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 287,
+          "total_activation": 26637.86,
+          "max_activation": 13318.93,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 83,
+          "total_activation": 25645.93,
+          "max_activation": 12822.96,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 498,
+          "total_activation": 25037.15,
+          "max_activation": 12518.57,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 234,
+          "total_activation": 23386.61,
+          "max_activation": 11693.3,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 179,
+          "total_activation": 20686.0,
+          "max_activation": 10343.0,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 50,
+          "total_activation": 20600.11,
+          "max_activation": 10300.06,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 522,
+          "total_activation": 19177.37,
+          "max_activation": 4792.03,
+          "density": 0.3077
+        },
+        {
+          "feature_id": 441,
+          "total_activation": 16651.06,
+          "max_activation": 2605.16,
+          "density": 0.4615
+        },
+        {
+          "feature_id": 7,
+          "total_activation": 16006.54,
+          "max_activation": 7318.18,
+          "density": 0.1154
+        },
+        {
+          "feature_id": 342,
+          "total_activation": 13712.86,
+          "max_activation": 13712.86,
+          "density": 0.0385
+        },
+        {
+          "feature_id": 382,
+          "total_activation": 13699.65,
+          "max_activation": 6849.83,
+          "density": 0.0769
+        },
+        {
+          "feature_id": 168,
+          "total_activation": 12272.92,
+          "max_activation": 12272.92,
+          "density": 0.0385
+        },
+        {
+          "feature_id": 163,
+          "total_activation": 12093.42,
+          "max_activation": 6046.71,
+          "density": 0.0769
+        }
+      ],
+      "D06": [
+        {
+          "feature_id": 251,
+          "total_activation": 81869.44,
+          "max_activation": 36522.44,
+          "density": 0.1667
+        },
+        {
+          "feature_id": 90,
+          "total_activation": 76378.45,
+          "max_activation": 34957.71,
+          "density": 0.2
+        },
+        {
+          "feature_id": 133,
+          "total_activation": 64816.87,
+          "max_activation": 27617.95,
+          "density": 0.2
+        },
+        {
+          "feature_id": 220,
+          "total_activation": 61764.79,
+          "max_activation": 30167.27,
+          "density": 0.1333
+        },
+        {
+          "feature_id": 188,
+          "total_activation": 54378.48,
+          "max_activation": 26058.23,
+          "density": 0.1333
+        },
+        {
+          "feature_id": 392,
+          "total_activation": 53453.86,
+          "max_activation": 26146.89,
+          "density": 0.1333
+        },
+        {
+          "feature_id": 81,
+          "total_activation": 40513.57,
+          "max_activation": 20256.79,
+          "density": 0.0667
+        },
+        {
+          "feature_id": 287,
+          "total_activation": 26637.86,
+          "max_activation": 13318.93,
+          "density": 0.0667
+        },
+        {
+          "feature_id": 83,
+          "total_activation": 25645.93,
+          "max_activation": 12822.96,
+          "density": 0.0667
+        },
+        {
+          "feature_id": 522,
+          "total_activation": 25638.22,
+          "max_activation": 4067.17,
+          "density": 0.4
+        },
+        {
+          "feature_id": 498,
+          "total_activation": 25037.15,
+          "max_activation": 12518.57,
+          "density": 0.0667
+        },
+        {
+          "feature_id": 234,
+          "total_activation": 23386.61,
+          "max_activation": 11693.3,
+          "density": 0.0667
+        },
+        {
+          "feature_id": 441,
+          "total_activation": 21369.23,
+          "max_activation": 2867.96,
+          "density": 0.5
+        },
+        {
+          "feature_id": 179,
+          "total_activation": 20686.0,
+          "max_activation": 10343.0,
+          "density": 0.0667
+        },
+        {
+          "feature_id": 50,
+          "total_activation": 20600.11,
+          "max_activation": 10300.06,
+          "density": 0.0667
+        },
+        {
+          "feature_id": 7,
+          "total_activation": 16006.54,
+          "max_activation": 7318.18,
+          "density": 0.1
+        },
+        {
+          "feature_id": 342,
+          "total_activation": 13712.86,
+          "max_activation": 13712.86,
+          "density": 0.0333
+        },
+        {
+          "feature_id": 382,
+          "total_activation": 13699.65,
+          "max_activation": 6849.83,
+          "density": 0.0667
+        },
+        {
+          "feature_id": 168,
+          "total_activation": 12272.92,
+          "max_activation": 12272.92,
+          "density": 0.0333
+        },
+        {
+          "feature_id": 163,
+          "total_activation": 12093.42,
+          "max_activation": 6046.71,
+          "density": 0.0667
+        }
+      ],
+      "D07": [
+        {
+          "feature_id": 251,
+          "total_activation": 81920.22,
+          "max_activation": 36522.44,
+          "density": 0.1852
+        },
+        {
+          "feature_id": 90,
+          "total_activation": 77058.12,
+          "max_activation": 34957.71,
+          "density": 0.2222
+        },
+        {
+          "feature_id": 133,
+          "total_activation": 67346.56,
+          "max_activation": 27617.95,
+          "density": 0.2222
+        },
+        {
+          "feature_id": 220,
+          "total_activation": 61764.79,
+          "max_activation": 30167.27,
+          "density": 0.1481
+        },
+        {
+          "feature_id": 188,
+          "total_activation": 54378.48,
+          "max_activation": 26058.23,
+          "density": 0.1481
+        },
+        {
+          "feature_id": 392,
+          "total_activation": 53453.86,
+          "max_activation": 26146.89,
+          "density": 0.1481
+        },
+        {
+          "feature_id": 81,
+          "total_activation": 40513.57,
+          "max_activation": 20256.79,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 287,
+          "total_activation": 26637.86,
+          "max_activation": 13318.93,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 83,
+          "total_activation": 25645.93,
+          "max_activation": 12822.96,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 498,
+          "total_activation": 25037.15,
+          "max_activation": 12518.57,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 522,
+          "total_activation": 23578.51,
+          "max_activation": 4219.68,
+          "density": 0.3333
+        },
+        {
+          "feature_id": 234,
+          "total_activation": 23386.61,
+          "max_activation": 11693.3,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 179,
+          "total_activation": 20686.0,
+          "max_activation": 10343.0,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 50,
+          "total_activation": 20600.11,
+          "max_activation": 10300.06,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 441,
+          "total_activation": 16969.6,
+          "max_activation": 2605.16,
+          "density": 0.4444
+        },
+        {
+          "feature_id": 7,
+          "total_activation": 16006.54,
+          "max_activation": 7318.18,
+          "density": 0.1111
+        },
+        {
+          "feature_id": 342,
+          "total_activation": 13712.86,
+          "max_activation": 13712.86,
+          "density": 0.037
+        },
+        {
+          "feature_id": 382,
+          "total_activation": 13699.65,
+          "max_activation": 6849.83,
+          "density": 0.0741
+        },
+        {
+          "feature_id": 496,
+          "total_activation": 12884.11,
+          "max_activation": 5462.3,
+          "density": 0.2222
+        },
+        {
+          "feature_id": 168,
+          "total_activation": 12272.92,
+          "max_activation": 12272.92,
+          "density": 0.037
+        }
+      ],
+      "D08": [
+        {
+          "feature_id": 251,
+          "total_activation": 81838.95,
+          "max_activation": 36522.44,
+          "density": 0.2083
+        },
+        {
+          "feature_id": 90,
+          "total_activation": 77017.91,
+          "max_activation": 34957.71,
+          "density": 0.25
+        },
+        {
+          "feature_id": 133,
+          "total_activation": 65198.32,
+          "max_activation": 27617.95,
+          "density": 0.25
+        },
+        {
+          "feature_id": 220,
+          "total_activation": 61764.79,
+          "max_activation": 30167.27,
+          "density": 0.1667
+        },
+        {
+          "feature_id": 188,
+          "total_activation": 54378.48,
+          "max_activation": 26058.23,
+          "density": 0.1667
+        },
+        {
+          "feature_id": 392,
+          "total_activation": 53453.86,
+          "max_activation": 26146.89,
+          "density": 0.1667
+        },
+        {
+          "feature_id": 81,
+          "total_activation": 40513.57,
+          "max_activation": 20256.79,
+          "density": 0.0833
+        },
+        {
+          "feature_id": 287,
+          "total_activation": 26637.86,
+          "max_activation": 13318.93,
+          "density": 0.0833
+        },
+        {
+          "feature_id": 83,
+          "total_activation": 25645.93,
+          "max_activation": 12822.96,
+          "density": 0.0833
+        },
+        {
+          "feature_id": 498,
+          "total_activation": 25037.15,
+          "max_activation": 12518.57,
+          "density": 0.0833
+        },
+        {
+          "feature_id": 234,
+          "total_activation": 23386.61,
+          "max_activation": 11693.3,
+          "density": 0.0833
+        },
+        {
+          "feature_id": 179,
+          "total_activation": 20686.0,
+          "max_activation": 10343.0,
+          "density": 0.0833
+        },
+        {
+          "feature_id": 50,
+          "total_activation": 20600.11,
+          "max_activation": 10300.06,
+          "density": 0.0833
+        },
+        {
+          "feature_id": 522,
+          "total_activation": 16725.0,
+          "max_activation": 3806.29,
+          "density": 0.2917
+        },
+        {
+          "feature_id": 7,
+          "total_activation": 16006.54,
+          "max_activation": 7318.18,
+          "density": 0.125
+        },
+        {
+          "feature_id": 441,
+          "total_activation": 14781.43,
+          "max_activation": 2482.31,
+          "density": 0.4167
+        },
+        {
+          "feature_id": 342,
+          "total_activation": 13712.86,
+          "max_activation": 13712.86,
+          "density": 0.0417
+        },
+        {
+          "feature_id": 382,
+          "total_activation": 13699.65,
+          "max_activation": 6849.83,
+          "density": 0.0833
+        },
+        {
+          "feature_id": 496,
+          "total_activation": 13294.93,
+          "max_activation": 5462.3,
+          "density": 0.2083
+        },
+        {
+          "feature_id": 168,
+          "total_activation": 12272.92,
+          "max_activation": 12272.92,
+          "density": 0.0417
+        }
+      ]
+    },
+    "shared_features_4plus_prompts": {
+      "251": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/251"
+      },
+      "90": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/90"
+      },
+      "133": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/133"
+      },
+      "220": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/220"
+      },
+      "188": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/188"
+      },
+      "392": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/392"
+      },
+      "81": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/81"
+      },
+      "287": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/287"
+      },
+      "83": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/83"
+      },
+      "498": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/498"
+      },
+      "234": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/234"
+      },
+      "522": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/522"
+      },
+      "179": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/179"
+      },
+      "50": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/50"
+      },
+      "7": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/7"
+      },
+      "441": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/441"
+      },
+      "342": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/342"
+      },
+      "382": {
+        "n_prompts": 8,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D04",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/382"
+      },
+      "168": {
+        "n_prompts": 7,
+        "prompts": [
+          "D01",
+          "D02",
+          "D03",
+          "D05",
+          "D06",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/168"
+      },
+      "163": {
+        "n_prompts": 4,
+        "prompts": [
+          "D01",
+          "D02",
+          "D05",
+          "D06"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/163"
+      },
+      "496": {
+        "n_prompts": 4,
+        "prompts": [
+          "D03",
+          "D04",
+          "D07",
+          "D08"
+        ],
+        "neuronpedia_url": "neuronpedia.org/gemma-3-4b-it/22-gemmascope-res-16k/496"
+      }
+    },
+    "feature_1286_in_topk": false,
+    "feature_1286_prompts": []
+  },
+  "status": "OK"
+}

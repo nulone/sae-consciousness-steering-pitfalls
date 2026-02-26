@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "model": "google/gemma-3-12b-it",
+    "sae": "gemma-scope-2-12b-it-res/layer_24_width_16k_l0_small",
+    "layer": 24,
+    "timestamp": "2026-02-23 12:13:49",
+    "runtime_seconds": 225.7,
+    "environment": {
+      "torch": "2.10.0+cu128",
+      "transformers": "5.2.0",
+      "sae_lens": "6.37.3"
+    }
+  },
+  "results": {
+    "4": {
+      "n": 4,
+      "n_found_deterministic": 5,
+      "n_survived_deterministic": 1,
+      "features_found": [
+        "58",
+        "942",
+        "1724",
+        "7250",
+        "12429"
+      ],
+      "features_survived": [
+        "1724"
+      ],
+      "fp_rate_mean": 0.5884,
+      "fp_rate_ci_low": 0.0,
+      "fp_rate_ci_high": 1.0,
+      "n_bootstrap": 100
+    },
+    "8": {
+      "n": 8,
+      "n_found_deterministic": 2,
+      "n_survived_deterministic": 1,
+      "features_found": [
+        "1724",
+        "7250"
+      ],
+      "features_survived": [
+        "1724"
+      ],
+      "fp_rate_mean": 0.3913,
+      "fp_rate_ci_low": 0.0,
+      "fp_rate_ci_high": 0.75,
+      "n_bootstrap": 100
+    },
+    "12": {
+      "n": 12,
+      "n_found_deterministic": 3,
+      "n_survived_deterministic": 2,
+      "features_found": [
+        "1724",
+        "7250",
+        "11402"
+      ],
+      "features_survived": [
+        "1724",
+        "11402"
+      ],
+      "fp_rate_mean": 0.3392,
+      "fp_rate_ci_low": 0.0,
+      "fp_rate_ci_high": 0.6667,
+      "n_bootstrap": 100
+    },
+    "16": {
+      "n": 16,
+      "n_found_deterministic": 3,
+      "n_survived_deterministic": 2,
+      "features_found": [
+        "1724",
+        "7250",
+        "11402"
+      ],
+      "features_survived": [
+        "1724",
+        "11402"
+      ],
+      "fp_rate_mean": 0.2333,
+      "fp_rate_ci_low": 0.0,
+      "fp_rate_ci_high": 0.6667,
+      "n_bootstrap": 100
+    },
+    "20": {
+      "n": 20,
+      "n_found_deterministic": 2,
+      "n_survived_deterministic": 2,
+      "features_found": [
+        "1724",
+        "11402"
+      ],
+      "features_survived": [
+        "1724",
+        "11402"
+      ],
+      "fp_rate_mean": 0.0,
+      "fp_rate_ci_low": 0.0,
+      "fp_rate_ci_high": 0.0,
+      "n_bootstrap": 100
+    },
+    "power_law_fit": {
+      "exponent": -0.621,
+      "intercept": 0.354,
+      "r_squared": 0.9546,
+      "p_value": 0.022944064436732248
+    }
+  }
+}

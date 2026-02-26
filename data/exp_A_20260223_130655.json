@@ -1,0 +1,123 @@
+{
+  "4": {
+    "n": 4,
+    "n_found_deterministic": 2,
+    "n_survived_deterministic": 0,
+    "features_found": [
+      "1795",
+      "934"
+    ],
+    "features_survived": [],
+    "fp_rate_mean": 0.91,
+    "fp_rate_ci_low": 0.0,
+    "fp_rate_ci_high": 1.0,
+    "n_bootstrap": 100
+  },
+  "8": {
+    "n": 8,
+    "n_found_deterministic": 2,
+    "n_survived_deterministic": 0,
+    "features_found": [
+      "1795",
+      "934"
+    ],
+    "features_survived": [],
+    "fp_rate_mean": 0.93,
+    "fp_rate_ci_low": 0.0,
+    "fp_rate_ci_high": 1.0,
+    "n_bootstrap": 100
+  },
+  "12": {
+    "n": 12,
+    "n_found_deterministic": 1,
+    "n_survived_deterministic": 0,
+    "features_found": [
+      "1795"
+    ],
+    "features_survived": [],
+    "fp_rate_mean": 0.94,
+    "fp_rate_ci_low": 0.0,
+    "fp_rate_ci_high": 1.0,
+    "n_bootstrap": 100
+  },
+  "16": {
+    "n": 16,
+    "n_found_deterministic": 1,
+    "n_survived_deterministic": 0,
+    "features_found": [
+      "1795"
+    ],
+    "features_survived": [],
+    "fp_rate_mean": 1.0,
+    "fp_rate_ci_low": 1.0,
+    "fp_rate_ci_high": 1.0,
+    "n_bootstrap": 100
+  },
+  "20": {
+    "n": 20,
+    "n_found_deterministic": 1,
+    "n_survived_deterministic": 0,
+    "features_found": [
+      "1795"
+    ],
+    "features_survived": [],
+    "fp_rate_mean": 1.0,
+    "fp_rate_ci_low": 1.0,
+    "fp_rate_ci_high": 1.0,
+    "n_bootstrap": 100
+  },
+  "power_law_fit": {
+    "exponent": 0.062,
+    "intercept": -0.192,
+    "r_squared": 0.8352,
+    "p_value": 0.02993095596784048,
+    "n_points": 5
+  },
+  "feature_1795_trajectory": {
+    "4": {
+      "found": true,
+      "survived": false
+    },
+    "8": {
+      "found": true,
+      "survived": false
+    },
+    "12": {
+      "found": true,
+      "survived": false
+    },
+    "16": {
+      "found": true,
+      "survived": false
+    },
+    "20": {
+      "found": true,
+      "survived": false
+    }
+  },
+  "feature_934_trajectory": {
+    "4": {
+      "found": true,
+      "survived": false
+    },
+    "8": {
+      "found": true,
+      "survived": false
+    },
+    "12": {
+      "found": false,
+      "survived": false
+    },
+    "16": {
+      "found": false,
+      "survived": false
+    },
+    "20": {
+      "found": false,
+      "survived": false
+    }
+  },
+  "sae_used": "gemma-scope-2-4b-it-res/layer_22_width_16k_l0_small",
+  "status": "OK",
+  "runtime_seconds": 40.7
+}
